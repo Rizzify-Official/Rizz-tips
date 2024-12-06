@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Rizzify - Rizz Tips</title>
+  <link rel="shortcut icon" type="x-icon" href="logo.png">
+  <style>
+    /* Global Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* Body */
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #1c1c1c, #2f2f2f);
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+      flex-direction: column;
+      text-align: center;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    /* Blur Background Box */
+    .blur-box {
+      background: rgba(0, 0, 0, 0.5);
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+      backdrop-filter: blur(12px);
+      width: 100%;
+      max-width: 900px;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .blur-box:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 18px 60px rgba(0, 0, 0, 0.3);
+    }
+
+    h1 {
+      font-size: 4rem;
+      margin-bottom: 20px;
+      color: #00b894;
+      font-weight: bold;
+      letter-spacing: 2px;
+      animation: fadeIn 1s ease-out forwards;
+    }
+
+    h2 {
+      font-size: 1.6rem;
+      margin-bottom: 25px;
+      color: #dfe6e9;
+      font-weight: 400;
+      animation: fadeIn 1.2s ease-out forwards;
+    }
+
+    .rizz-tip {
+      background-color: rgba(45, 45, 45, 0.8);
+      border-radius: 15px;
+      padding: 25px;
+      margin-bottom: 25px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+      max-width: 800px;
+      width: 100%;
+      font-size: 1.15em;
+      line-height: 1.7;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      opacity: 0;
+      animation: fadeIn 1s ease-out forwards;
+    }
+
+    .rizz-tip:nth-child(odd) {
+      animation-delay: 0.3s;
+    }
+
+    .rizz-tip:nth-child(even) {
+      animation-delay: 0.6s;
+    }
+
+    .rizz-tip:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+    }
+
+    .rizz-tip h3 {
+      font-size: 1.5rem;
+      color: #00b894;
+      margin-bottom: 15px;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    .rizz-tip p {
+      color: #b2bec3;
+      line-height: 1.6;
+      opacity: 0;
+      animation: fadeInText 1s ease-out forwards;
+    }
+
+    .rizz-tip:hover h3 {
+      color: #55efc4;
+    }
+
+    /* Light Mode Styles */
+    body.light-mode {
+      background: linear-gradient(135deg, #ffffff, #f0f0f0);
+      color: #333;
+    }
+
+    body.light-mode .rizz-tip {
+      background-color: rgba(255, 255, 255, 0.8);
+      color: #333;
+    }
+
+    body.light-mode .rizz-tip h3 {
+      color: #2d3436;
+    }
+
+    /* Theme Switcher */
+    .theme-switcher {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 10;
+      animation: slideIn 1s ease-out forwards;
+    }
+
+    input[type="checkbox"] {
+      display: none;
+    }
+
+    .switch {
+      width: 60px;
+      height: 30px;
+      background-color: #7f8c8d;
+      border-radius: 50px;
+      position: relative;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .switch:before {
+      content: '';
+      width: 28px;
+      height: 28px;
+      background-color: #fff;
+      border-radius: 50%;
+      position: absolute;
+      top: 1px;
+      left: 1px;
+      transition: transform 0.3s ease;
+    }
+
+    input[type="checkbox"]:checked + .switch {
+      background-color: #00b894;
+    }
+
+    input[type="checkbox"]:checked + .switch:before {
+      transform: translateX(30px);
+    }
+
+    /* Responsive */
+    @media screen and (max-width: 768px) {
+      h1 {
+        font-size: 3rem;
+      }
+
+      h2 {
+        font-size: 1.4rem;
+      }
+
+      .blur-box {
+        padding: 25px;
+      }
+
+      .rizz-tip {
+        padding: 20px;
+        font-size: 1.1em;
+      }
+
+      .theme-switcher {
+        top: 15px;
+        right: 15px;
+      }
+    }
+
+    @media screen and (max-width: 480px) {
+      h1 {
+        font-size: 2.4rem;
+      }
+
+      h2 {
+        font-size: 1.2rem;
+      }
+
+      .rizz-tip {
+        padding: 15px;
+      }
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInText {
+      0% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+
+    @keyframes slideIn {
+      0% {
+        transform: translateX(100px);
+        opacity: 0;
+      }
+      100% {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="blur-box">
+    <h1>Rizzify - Rizz Tips</h1>
+    <h2>Master the art of attraction with these tips</h2>
+
+    <div class="rizz-tip">
+      <h3>1. Be Confident, Not Cocky</h3>
+      <p>Confidence is key! Stand tall, speak clearly, and make eye contact. But remember, confidence doesn't mean arrogance. Be humble and aware of the situation.</p>
+    </div>
+
+    <div class="rizz-tip">
+      <h3>2. Smile and Make Eye Contact</h3>
+      <p>A warm smile and genuine eye contact can do wonders. Try holding eye contact for about 3 seconds and smile like you mean it. It'll make you more approachable and magnetic.</p>
+    </div>
+
+    <div class="rizz-tip">
+      <h3>3. Compliment, But Keep It Real</h3>
+      <p>Give specific and sincere compliments, not generic ones. Instead of saying "You're pretty," try something like, "I love the way you express your ideas." Genuine compliments always hit harder!</p>
+    </div>
+
+    <div class="rizz-tip">
+      <h3>4. Master the Art of Conversation</h3>
+      <p>Great conversation isn't about talking *at* someone—it's about listening actively and building on what they say. Keep the conversation flowing by asking questions and showing interest.</p>
+    </div>
+
+    <div class="rizz-tip">
+      <h3>5. Be Playful and Fun</h3>
+      <p>Use humor and light teasing to keep things relaxed and fun. But remember, it should always feel playful—not mean-spirited. People love someone who can make them laugh!</p>
+    </div>
+
+    <div class="rizz-tip">
+      <h3>6. Be Mysterious, Not Overexposed</h3>
+      <p>Don’t give everything away in one go. Let people learn more about you over time, and leave a little mystery to spark curiosity. A little intrigue can go a long way.</p>
+    </div>
+
+    <div class="rizz-tip">
+      <h3>7. Be Authentic</h3>
+      <p>The best rizz comes when you're genuine. People can tell when you're being yourself. Don’t try to be someone you're not—just embrace your quirks and personality.</p>
+    </div>
+
+    <div class="rizz-tip">
+      <h3>8. Use Body Language to Your Advantage</h3>
+      <p>Non-verbal cues can make a huge impact. Use open body language, mirror the other person's gestures subtly, and avoid crossing your arms. Good body language shows confidence and approachability.</p>
+    </div>
+
+    <div class="rizz-tip">
+      <h3>9. Give a Genuine Compliment to Make Someone Feel Special</h3>
+      <p>People love to be recognized. Compliment them on something specific about their personality, skills, or actions. It will make them feel unique and appreciated.</p>
+    </div>
+
+    <div class="rizz-tip">
+      <h3>10. Show Emotional Intelligence</h3>
+      <p>Understand and acknowledge the emotions of others. People are drawn to those who are empathetic and emotionally aware. It helps build trust and connection.</p>
+    </div>
+
+    <div class="rizz-tip">
+      <h3>11. Be Polite and Respectful</h3>
+      <p>Good manners never go out of style. Say “please” and “thank you,” and show appreciation. Respect goes a long way in making a good impression.</p>
+    </div>
+
+    <div class="rizz-tip">
+      <h3>12. Dress Well</h3>
+      <p>Appearance matters. Dressing well doesn't mean dressing fancy, but make sure you're presentable and comfortable. When you feel good about yourself, it shows!</p>
+    </div>
+
+    <!-- Light/Dark Mode Switch -->
+    <div class="theme-switcher">
+      <input type="checkbox" id="themeToggle" />
+      <label for="themeToggle" class="switch"></label>
+    </div>
+  </div>
+
+  <script>
+    const themeToggle = document.getElementById('themeToggle');
+    if (localStorage.getItem('theme') === 'light') {
+      document.body.classList.add('light-mode');
+      themeToggle.checked = true;
+    }
+    themeToggle.addEventListener('change', () => {
+      document.body.classList.toggle('light-mode');
+      if (document.body.classList.contains('light-mode')) {
+        localStorage.setItem('theme', 'light');
+      } else {
+        localStorage.removeItem('theme');
+      }
+    });
+  </script>
+</body>
+</html>
